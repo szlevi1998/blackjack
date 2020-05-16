@@ -65,10 +65,8 @@ public class Cards {
         return value.GetShortValue() + suit.GetShortSuit();
     }
 
-    public void getValue() {
-        int value = 0;
-
-
+    public String getRandomCard(){
+    return null;
     }
 
 }
