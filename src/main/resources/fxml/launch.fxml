@@ -4,14 +4,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="">
-   <children>
-      <Button layoutX="298.0" layoutY="312.0" mnemonicParsing="false" text="Start">
+<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LaunchController">
+      <Button fx:id="startAction" layoutX="298.0" layoutY="312.0" mnemonicParsing="false" text="Start">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <TextField layoutX="241.0" layoutY="259.0" />
+      <TextField fx:id="UserNameTextField" layoutX="241.0" layoutY="259.0" />
       <Label alignment="CENTER" layoutX="258.0" layoutY="47.0" prefHeight="17.0" prefWidth="137.0" text="Blackjack" textFill="#0880ff">
          <font>
             <Font name="System Bold" size="23.0" />
@@ -26,5 +25,4 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-   </children>
 </AnchorPane>
