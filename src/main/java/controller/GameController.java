@@ -1,6 +1,5 @@
 package controller;
 
-import game.Cards;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +16,6 @@ import java.io.IOException;
 
 public class GameController {
 
-    private Cards cards;
 
     @FXML
     private ImageView background;
