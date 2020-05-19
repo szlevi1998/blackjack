@@ -8,7 +8,7 @@
     <!-- Background -->
     <ImageView fx:id="background" fitHeight="600" fitWidth="600" />
     <!-- Button -->
-    <Button fx:id="exitButton" layoutX="495.0" layoutY="502.0" mnemonicParsing="false" onAction="#finishGame" text="Exit" textFill="#dd0303" />
+    <Button fx:id="exitButton" layoutX="495.0" layoutY="502.0" mnemonicParsing="false" onAction="#finishGame"  text="Exit" textFill="#dd0303" />
    <Button fx:id="stand" layoutX="495.0" layoutY="326.0" minWidth="60.0" mnemonicParsing="false" onAction="#endTurn" text="Stand" />
    <Button layoutX="20.0" layoutY="326.0" mnemonicParsing="false" onAction="#addNewPlayerCard" prefWidth="60.0" text="Hit" />
    <Pane fx:id="field" layoutX="100.0" layoutY="73.0" prefHeight="375.0" prefWidth="375.0">
