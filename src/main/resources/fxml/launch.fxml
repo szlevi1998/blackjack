@@ -10,7 +10,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="UserNameTextField" layoutX="241.0" layoutY="259.0" />
+      <TextField fx:id="userNameTextField" layoutX="241.0" layoutY="259.0" />
       <Label alignment="CENTER" layoutX="258.0" layoutY="47.0" prefHeight="17.0" prefWidth="137.0" text="Blackjack" textFill="#0880ff">
          <font>
             <Font name="System Bold" size="23.0" />

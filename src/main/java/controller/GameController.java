@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -23,11 +24,15 @@ public class GameController {
     private int playerIndex = 2;
     private int hostIndex = 2;
     private BlackJack blackJack;
-
     private String userName;
 
     @FXML
-    private Pane field;
+    private Label currentUser;
+    @FXML
+    private Pane player;
+
+    @FXML
+    private Pane host;
 
     @FXML
     private ImageView background;
@@ -71,7 +76,7 @@ public class GameController {
 
     public void initializeData(String userName) {
         this.userName = userName;
-
+        currentUser.setText("Current user: " + this.userName);
     }
 
     public void drawGame() {
@@ -89,12 +94,12 @@ public class GameController {
     }
 
     public void addNewPlayerCard(){
-        ImageView view = (ImageView) field.getChildren().get(playerIndex);
+        ImageView view = (ImageView) player.getChildren().get(playerIndex);
         view.setImage(new Image(getClass().getResource("/images/"+ blackJack.addPlayerCard()+ ".png").toExternalForm()));
         playerIndex++;
     }
     public void addHostCard(){
-        ImageView view = (ImageView) field.getChildren().get(hostIndex);
+        ImageView view = (ImageView) host.getChildren().get(hostIndex);
         view.setImage(new Image(getClass().getResource("/images/"+ blackJack.addHostCard()+ ".png").toExternalForm()));
         hostIndex++;
     }
@@ -102,6 +107,7 @@ public class GameController {
     public void endTurn(){
         List<String> hostCardList = blackJack.getHostCardList();
         backCard.setImage(new Image(getClass().getResource("/images/" + hostCardList.get(0) + ".png").toExternalForm()));
+        addHostCard();
     }
 
     @FXML

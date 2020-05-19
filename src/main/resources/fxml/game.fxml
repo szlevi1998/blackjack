@@ -3,16 +3,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameController">
     <!-- Background -->
     <ImageView fx:id="background" fitHeight="600" fitWidth="600" />
     <!-- Button -->
-    <Button fx:id="exitButton" layoutX="495.0" layoutY="502.0" mnemonicParsing="false" onAction="#finishGame"  text="Exit" textFill="#dd0303" />
+    <Button fx:id="exitButton" layoutX="495.0" layoutY="502.0" mnemonicParsing="false" onAction="#finishGame" text="Exit" textFill="#dd0303" />
    <Button fx:id="stand" layoutX="495.0" layoutY="326.0" minWidth="60.0" mnemonicParsing="false" onAction="#endTurn" text="Stand" />
    <Button layoutX="20.0" layoutY="326.0" mnemonicParsing="false" onAction="#addNewPlayerCard" prefWidth="60.0" text="Hit" />
-   <Pane fx:id="field" layoutX="100.0" layoutY="73.0" prefHeight="375.0" prefWidth="375.0">
+   <Pane fx:id="player" layoutX="100.0" layoutY="73.0" prefHeight="375.0" prefWidth="375.0">
       <children>
+         <Label fx:id="currentUser" prefHeight="16.0" prefWidth="450.0" text="Current user: " textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font></Label>
          <ImageView fx:id="player1" fitHeight="65.0" fitWidth="45.0" layoutX="133.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
          <ImageView fx:id="player2" fitHeight="65.0" fitWidth="45.0" layoutX="193.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
          <ImageView fx:id="player3" fitHeight="65.0" fitWidth="45.0" layoutX="73.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
@@ -22,12 +27,12 @@
 
       </children>
    </Pane>
-   <Pane fx:id="host"  layoutX="100.0" layoutY="73.0" prefHeight="375.0" prefWidth="375.0">
+   <Pane fx:id="host" layoutX="100.0" layoutY="73.0" prefHeight="375.0" prefWidth="375.0">
    <ImageView fx:id="backCard" fitHeight="65.0" fitWidth="45.0" layoutX="133.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
    <ImageView fx:id="host2" fitHeight="65.0" fitWidth="45.0" layoutX="193.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
-   <ImageView fx:id="host3" fitHeight="60.0" fitWidth="45.0" layoutX="73.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
-   <ImageView fx:id="host4" fitHeight="60.0" fitWidth="45.0" layoutX="253.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
-   <ImageView fx:id="host5" fitHeight="60.0" fitWidth="45.0" layoutX="13.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
-   <ImageView fx:id="host6" fitHeight="60.0" fitWidth="45.0" layoutX="313.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="host3" fitHeight="65.0" fitWidth="45.0" layoutX="73.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="host4" fitHeight="65.0" fitWidth="45.0" layoutX="253.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="host5" fitHeight="65.0" fitWidth="45.0" layoutX="13.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="host6" fitHeight="65.0" fitWidth="45.0" layoutX="313.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
    </Pane>
 </AnchorPane>

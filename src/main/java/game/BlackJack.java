@@ -48,7 +48,6 @@ public class BlackJack {
     }
 
     public String addPlayerCard(){
-        String result;
 
         String recentCard = null;
 
@@ -65,8 +64,6 @@ public class BlackJack {
     }
 
     public String addHostCard(){
-        String result;
-
         String recentCard = null;
 
         for (int i = 0; i < 1; i++) {
