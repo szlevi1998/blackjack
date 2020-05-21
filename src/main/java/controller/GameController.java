@@ -15,8 +15,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import results.BlackJackResult;
+import results.BlackJackResultDao;
 
 import java.io.IOException;
+
 import java.util.List;
 
 @Slf4j
@@ -26,7 +29,10 @@ public class GameController {
     private int hostIndex = 2;
     private BlackJack blackJack;
     private String userName;
-    private int score;
+    private int numberOfWins;
+    private int numberOfLosses;
+
+    private BlackJackResultDao blackJackResultDao;
 
     @FXML
     private Label currentUser;
@@ -38,10 +44,7 @@ public class GameController {
     private Label hostScore;
 
     @FXML
-    private Label winner;
-
-    @FXML
-    private Label loser;
+    private Label state;
 
     @FXML
     private Button start;
@@ -82,11 +85,7 @@ public class GameController {
         background.setImage(new Image(getClass().getResource("/images/background.jpg").toExternalForm()));
     }
 
-
-    public void drawCards() {
-        blackJack.createCardList();
-        List<String> hostCardList = blackJack.getHostCardList();
-        List<String> playerCardList = blackJack.getPlayerCardList();
+    public void resetGame(){
         ImageView view;
         for (int i = 0; i < player.getChildren().size(); i++) {
             view = (ImageView) player.getChildren().get(i);
@@ -96,6 +95,18 @@ public class GameController {
         }
         hostIndex = 2;
         playerIndex = 2;
+        state.setText(null);
+        hostScore.setText(null);
+
+    }
+
+
+    public void drawCards() {
+        blackJack.createCardList();
+        List<String> hostCardList = blackJack.getHostCardList();
+        List<String> playerCardList = blackJack.getPlayerCardList();
+
+        resetGame();
 
         player1.setImage(new Image(getClass().getResource("/images/" + playerCardList.get(0) + ".png").toExternalForm()));
         player2.setImage(new Image(getClass().getResource("/images/" + playerCardList.get(1) + ".png").toExternalForm()));
@@ -105,7 +116,20 @@ public class GameController {
         hit.setDisable(false);
         stand.setDisable(false);
         currentScore.setText("Current score: " + blackJack.getPlayerCardValue());
-        blackJack.checkForPlayerBlackJack();
+        if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == 1) {
+            state.setText("You have won!");
+            numberOfWins++;
+            start.setDisable(false);
+            hit.setDisable(true);
+            stand.setDisable(true);
+        } else if ((blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == -1)) {
+            state.setText("You have lost!");
+            numberOfLosses++;
+            start.setDisable(false);
+            hit.setDisable(true);
+            stand.setDisable(true);
+        }
+
     }
 
     public void addNewPlayerCard() {
@@ -113,36 +137,80 @@ public class GameController {
         view.setImage(new Image(getClass().getResource("/images/" + blackJack.addPlayerCard() + ".png").toExternalForm()));
         ++playerIndex;
         currentScore.setText("Current score: " + blackJack.getPlayerCardValue());
+        if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == 1) {
+            state.setText("You have won!");
+            numberOfWins++;
+            start.setDisable(false);
+            hit.setDisable(true);
+            stand.setDisable(true);
+        } else if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == -1) {
+            state.setText("You have lost!");
+            numberOfLosses++;
+            start.setDisable(false);
+            hit.setDisable(true);
+            stand.setDisable(true);
+        }
     }
-
 
     public void addHostCard() {
         ImageView view = (ImageView) host.getChildren().get(hostIndex);
         view.setImage(new Image(getClass().getResource("/images/" + blackJack.addHostCard() + ".png").toExternalForm()));
         ++hostIndex;
+
     }
 
     public void endTurn() {
         List<String> hostCardList = blackJack.getHostCardList();
         backCard.setImage(new Image(getClass().getResource("/images/" + hostCardList.get(0) + ".png").toExternalForm()));
-        addHostCard();
+        while (blackJack.getHostCardValue() < 17) {
+            addHostCard();
+        }
+        hostScore.setText("Host Score: " + blackJack.getHostCardValue());
+        if (blackJack.checkStateOfGame(blackJack.getHostCardValue()) == 1) {
+            state.setText("You have lost!");
+            numberOfLosses++;
+        } else if (blackJack.checkStateOfGame(blackJack.getHostCardValue()) == -1) {
+            state.setText("You have won!");
+            numberOfWins++;
+        } else {
+            if (blackJack.compareValue()) {
+                state.setText("You have won!");
+                numberOfWins++;
+            } else {
+                state.setText("You have lost!");
+                numberOfLosses++;
+            }
+
+        }
+        start.setDisable(false);
         hit.setDisable(true);
         stand.setDisable(true);
-        start.setDisable(false);
-        hostScore.setText("Host Score: " + blackJack.getHostCardValue());
     }
 
     @FXML
     public void initialize() {
 
         blackJack = new BlackJack();
+        blackJackResultDao = BlackJackResultDao.getInstance();
         drawGame();
         hit.setDisable(true);
         stand.setDisable(true);
+
+    }
+
+    private BlackJackResult getResult() {
+
+        BlackJackResult result = BlackJackResult.builder()
+                .name(userName)
+                .wins(numberOfWins)
+                .losses(numberOfLosses)
+                .build();
+        return result;
     }
 
 
     public void finishGame(ActionEvent actionEvent) throws IOException {
+        blackJackResultDao.persist(getResult());
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/topscores.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

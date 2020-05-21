@@ -17,8 +17,6 @@ public class BlackJack {
     private int numberOfPlayerAces = 0;
     private int numberOfHostAces = 0;
 
-    private String winner ;
-
     public void createCardList() {
         playerCardList = null;
         hostCardList = null;
@@ -145,26 +143,19 @@ public class BlackJack {
     }
 
 
-    public boolean checkForPlayerBlackJack() {
-        boolean blackJack = false;
+    public int checkStateOfGame(int value) {
 
-        if (getPlayerCardValue() == 21) {
-            blackJack = true;
+        if (value == 21) {
+            return 1;
+        } else if (value > 21) {
+            return -1;
         } else {
-            blackJack = false;
+            return 0;
         }
-        return blackJack;
     }
 
-    public boolean checkForHostBlackJack() {
-        boolean blackJack = true;
-
-        if (getHostCardValue() == 21){
-            blackJack = true;
-        } else {
-            blackJack = false;
-        }
-
-        return blackJack;
+    public boolean compareValue() {
+        return getPlayerCardValue() > getHostCardValue();
     }
+
 }
