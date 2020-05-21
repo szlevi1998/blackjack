@@ -17,6 +17,8 @@ public class BlackJack {
     private int numberOfPlayerAces = 0;
     private int numberOfHostAces = 0;
 
+    private String winner ;
+
     public void createCardList() {
         playerCardList = null;
         hostCardList = null;
@@ -89,10 +91,6 @@ public class BlackJack {
         return str.substring(0, str.length() - 1);
     }
 
-    public static void main(String[] args) {
-        BlackJack blackJack = new BlackJack();
-        System.out.println(blackJack.clearLetter("AD"));
-    }
 
     public int getPlayerCardValue() {
         int cardNum = 0;
@@ -104,7 +102,6 @@ public class BlackJack {
             if (value.matches("A")) {
                 numberOfPlayerAces++;
                 cardNum += 11;
-                System.out.println("before" + numberOfPlayerAces);
             } else if (value.matches("K|Q|J")) {
                 cardNum += 10;
             } else {
@@ -116,7 +113,6 @@ public class BlackJack {
         while (cardNum > 21 && numberOfPlayerAces > 0) {
             numberOfPlayerAces--;
             cardNum -= 10;
-            System.out.println("after" + numberOfPlayerAces);
         }
         return cardNum;
     }
@@ -148,4 +144,27 @@ public class BlackJack {
         return cardNum;
     }
 
+
+    public boolean checkForPlayerBlackJack() {
+        boolean blackJack = false;
+
+        if (getPlayerCardValue() == 21) {
+            blackJack = true;
+        } else {
+            blackJack = false;
+        }
+        return blackJack;
+    }
+
+    public boolean checkForHostBlackJack() {
+        boolean blackJack = true;
+
+        if (getHostCardValue() == 21){
+            blackJack = true;
+        } else {
+            blackJack = false;
+        }
+
+        return blackJack;
+    }
 }

@@ -35,6 +35,15 @@ public class GameController {
     private Label currentScore;
 
     @FXML
+    private Label hostScore;
+
+    @FXML
+    private Label winner;
+
+    @FXML
+    private Label loser;
+
+    @FXML
     private Button start;
 
     @FXML
@@ -64,7 +73,6 @@ public class GameController {
     private ImageView host2;
 
 
-
     public void initializeData(String userName) {
         this.userName = userName;
         currentUser.setText("Current user: " + this.userName);
@@ -80,10 +88,10 @@ public class GameController {
         List<String> hostCardList = blackJack.getHostCardList();
         List<String> playerCardList = blackJack.getPlayerCardList();
         ImageView view;
-        for (int i = 0; i < player.getChildren().size() ; i++) {
-          view =(ImageView) player.getChildren().get(i);
-          view.setImage(null);
-            view =(ImageView) host.getChildren().get(i);
+        for (int i = 0; i < player.getChildren().size(); i++) {
+            view = (ImageView) player.getChildren().get(i);
+            view.setImage(null);
+            view = (ImageView) host.getChildren().get(i);
             view.setImage(null);
         }
         hostIndex = 2;
@@ -97,6 +105,7 @@ public class GameController {
         hit.setDisable(false);
         stand.setDisable(false);
         currentScore.setText("Current score: " + blackJack.getPlayerCardValue());
+        blackJack.checkForPlayerBlackJack();
     }
 
     public void addNewPlayerCard() {
@@ -120,6 +129,7 @@ public class GameController {
         hit.setDisable(true);
         stand.setDisable(true);
         start.setDisable(false);
+        hostScore.setText("Host Score: " + blackJack.getHostCardValue());
     }
 
     @FXML
