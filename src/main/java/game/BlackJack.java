@@ -5,6 +5,10 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing the rules of the game.
+ */
+
 @Getter
 public class BlackJack {
     @Getter
@@ -16,6 +20,10 @@ public class BlackJack {
 
     private int numberOfPlayerAces = 0;
     private int numberOfHostAces = 0;
+
+    /**
+     * Setting up
+     */
 
     public void createCardList() {
         playerCardList = null;

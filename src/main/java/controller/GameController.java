@@ -22,6 +22,10 @@ import java.io.IOException;
 
 import java.util.List;
 
+/**
+ * Controller class of the game screen.
+ */
+
 @Slf4j
 public class GameController {
 
@@ -76,6 +80,11 @@ public class GameController {
     @FXML
     private ImageView host2;
 
+    /**
+     * The player enters a name and with {@code userName} and the method saves the name.
+     *
+     * @param userName
+     */
     public void initializeData(String userName) {
         this.userName = userName;
         currentUser.setText("Current user: " + this.userName);
@@ -85,16 +94,73 @@ public class GameController {
         background.setImage(new Image(getClass().getResource("/images/background.jpg").toExternalForm()));
     }
 
-    private void setUpButtonsForCurrentRound() {
-        start.setDisable(false);
+    /**
+     * Initializes the game fxml file.
+     */
+    @FXML
+    public void initialize() {
+
+        blackJack = new BlackJack();
+        blackJackResultDao = BlackJackResultDao.getInstance();
+        drawBackground();
         hit.setDisable(true);
         stand.setDisable(true);
+
     }
 
-    private void setUpButtonsForNextRound() {
+    public void drawCards() {
+
+        resetGame();
+        drawPreRoundState();
+        setUpButtonsForCurrentRound();
+        currentScore.setText("Current score: " + blackJack.getPlayerCardValue());
+
+        if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == 1) {
+            playerScenario();
+            setUpButtonsForNextRound();
+        } else if ((blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == -1)) {
+            hostScenario();
+            setUpButtonsForNextRound();
+        }
+
+    }
+
+    private void resetGame() {
+        ImageView view;
+        for (int i = 0; i < player.getChildren().size(); i++) {
+            view = (ImageView) player.getChildren().get(i);
+            view.setImage(null);
+            view = (ImageView) host.getChildren().get(i);
+            view.setImage(null);
+        }
+        hostIndex = 2;
+        playerIndex = 2;
+        state.setText(null);
+        hostScore.setText(null);
+        log.info("Cards have been resetted.");
+    }
+
+    private void drawPreRoundState() {
+        blackJack.createCardList();
+        List<String> hostCardList = blackJack.getHostCardList();
+        List<String> playerCardList = blackJack.getPlayerCardList();
+        player1.setImage(new Image(getClass().getResource("/images/" + playerCardList.get(0) + ".png").toExternalForm()));
+        player2.setImage(new Image(getClass().getResource("/images/" + playerCardList.get(1) + ".png").toExternalForm()));
+        backCard.setImage(new Image(getClass().getResource("/images/backCard.png").toExternalForm()));
+        host2.setImage(new Image(getClass().getResource("/images/" + hostCardList.get(1) + ".png").toExternalForm()));
+        log.info("Created pre table for the next round of the game");
+    }
+
+    private void setUpButtonsForCurrentRound() {
         start.setDisable(true);
         hit.setDisable(false);
         stand.setDisable(false);
+    }
+
+    private void setUpButtonsForNextRound() {
+        start.setDisable(false);
+        hit.setDisable(true);
+        stand.setDisable(true);
     }
 
     private void playerScenario() {
@@ -109,48 +175,6 @@ public class GameController {
         log.info("Host has won.");
     }
 
-    public void resetGame() {
-        ImageView view;
-        for (int i = 0; i < player.getChildren().size(); i++) {
-            view = (ImageView) player.getChildren().get(i);
-            view.setImage(null);
-            view = (ImageView) host.getChildren().get(i);
-            view.setImage(null);
-        }
-        hostIndex = 2;
-        playerIndex = 2;
-        state.setText(null);
-        hostScore.setText(null);
-        log.info("Cards have been reseted.");
-    }
-
-    private void drawPreRoundState() {
-        blackJack.createCardList();
-        List<String> hostCardList = blackJack.getHostCardList();
-        List<String> playerCardList = blackJack.getPlayerCardList();
-        player1.setImage(new Image(getClass().getResource("/images/" + playerCardList.get(0) + ".png").toExternalForm()));
-        player2.setImage(new Image(getClass().getResource("/images/" + playerCardList.get(1) + ".png").toExternalForm()));
-        backCard.setImage(new Image(getClass().getResource("/images/backCard.png").toExternalForm()));
-        host2.setImage(new Image(getClass().getResource("/images/" + hostCardList.get(1) + ".png").toExternalForm()));
-        log.info("Created pre table for the next round of the game");
-    }
-
-    public void drawCards() {
-
-        resetGame();
-        drawPreRoundState();
-        setUpButtonsForNextRound();
-        currentScore.setText("Current score: " + blackJack.getPlayerCardValue());
-
-        if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == 1) {
-            playerScenario();
-            setUpButtonsForCurrentRound();
-        } else if ((blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == -1)) {
-            hostScenario();
-            setUpButtonsForCurrentRound();
-        }
-
-    }
 
     public void addNewPlayerCard() {
         ImageView view = (ImageView) player.getChildren().get(playerIndex);
@@ -159,19 +183,12 @@ public class GameController {
         currentScore.setText("Current score: " + blackJack.getPlayerCardValue());
         if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == 1) {
             playerScenario();
-            setUpButtonsForCurrentRound();
+            setUpButtonsForNextRound();
 
         } else if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == -1) {
             hostScenario();
-            setUpButtonsForCurrentRound();
+            setUpButtonsForNextRound();
         }
-    }
-
-    public void addHostCard() {
-        ImageView view = (ImageView) host.getChildren().get(hostIndex);
-        view.setImage(new Image(getClass().getResource("/images/" + blackJack.addHostCard() + ".png").toExternalForm()));
-        ++hostIndex;
-        log.info("Card has been added");
     }
 
     public void endTurn() {
@@ -193,19 +210,16 @@ public class GameController {
             }
 
         }
-        setUpButtonsForCurrentRound();
+        setUpButtonsForNextRound();
     }
 
-    @FXML
-    public void initialize() {
-
-        blackJack = new BlackJack();
-        blackJackResultDao = BlackJackResultDao.getInstance();
-        drawBackground();
-        hit.setDisable(true);
-        stand.setDisable(true);
-
+    private void addHostCard() {
+        ImageView view = (ImageView) host.getChildren().get(hostIndex);
+        view.setImage(new Image(getClass().getResource("/images/" + blackJack.addHostCard() + ".png").toExternalForm()));
+        ++hostIndex;
+        log.info("Card has been added");
     }
+
 
     private BlackJackResult getResult() {
 
@@ -220,6 +234,12 @@ public class GameController {
     }
 
 
+    /**
+     * Loads the top scores when the player clicks on the eit button
+     *
+     * @param actionEvent a click by the player
+     * @throws IOException if {@code fxmlLoader} can't load fxml file
+     */
     public void finishGame(ActionEvent actionEvent) throws IOException {
         blackJackResultDao.persist(getResult());
 
@@ -231,6 +251,5 @@ public class GameController {
         stage.show();
         log.info("Finished game, loading to top scores.");
     }
-
 
 }

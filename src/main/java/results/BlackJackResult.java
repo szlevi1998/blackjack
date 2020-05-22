@@ -24,7 +24,7 @@ public class BlackJackResult {
     private Long id;
 
     /**
-     * The name that user sets.
+     * The name that the user sets.
      */
 
     private String name;

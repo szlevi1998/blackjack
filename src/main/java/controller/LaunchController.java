@@ -13,6 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
+/**
+ * Controller class of the launch screen.
+ */
+
 @Slf4j
 public class LaunchController {
 
@@ -22,18 +26,25 @@ public class LaunchController {
     @FXML
     private Label errorLabel;
 
-    public void startAction(ActionEvent actionEvent) throws IOException{
-        if(userNameTextField.getText().isEmpty()){
+    /**
+     * When the player clicks on the start button, the game starts.
+     *
+     * @param actionEvent a mouse click by a player
+     * @throws IOException if{@code fxmlLoader} can't load the fxml file.
+     */
+
+    public void startAction(ActionEvent actionEvent) throws IOException {
+        if (userNameTextField.getText().isEmpty()) {
             errorLabel.setText("Username is empty, please type your Name!");
             log.error("UserNameTextField is empty");
-        }else{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource( "/fxml/game.fxml"));
+        } else {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/game.fxml"));
             Parent root = fxmlLoader.load();
             fxmlLoader.<GameController>getController().initializeData(userNameTextField.getText());
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-            log.info("Username has been set to {}",userNameTextField.getText());
+            log.info("Username has been set to {}", userNameTextField.getText());
         }
 
     }
