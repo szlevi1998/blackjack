@@ -54,6 +54,7 @@ public class GameController {
 
     @FXML
     private Button stand;
+
     @FXML
     private Pane player;
 
@@ -62,6 +63,7 @@ public class GameController {
 
     @FXML
     private ImageView background;
+
     @FXML
     private ImageView backCard;
 
@@ -71,21 +73,41 @@ public class GameController {
     @FXML
     private ImageView player2;
 
-
     @FXML
     private ImageView host2;
-
 
     public void initializeData(String userName) {
         this.userName = userName;
         currentUser.setText("Current user: " + this.userName);
     }
 
-    public void drawGame() {
+    public void drawPreField() {
         background.setImage(new Image(getClass().getResource("/images/background.jpg").toExternalForm()));
     }
 
-    public void resetGame(){
+    public void setUpButtonsForCurrentRound() {
+        start.setDisable(false);
+        hit.setDisable(true);
+        stand.setDisable(true);
+    }
+
+    public void setUpButtonsForNextRound() {
+        start.setDisable(true);
+        hit.setDisable(false);
+        stand.setDisable(false);
+    }
+
+    public void playerScenario() {
+        state.setText("You have won!");
+        numberOfWins++;
+    }
+
+    public void hostScenario() {
+        state.setText("You have lost!");
+        numberOfLosses++;
+    }
+
+    public void resetGame() {
         ImageView view;
         for (int i = 0; i < player.getChildren().size(); i++) {
             view = (ImageView) player.getChildren().get(i);
@@ -100,7 +122,6 @@ public class GameController {
 
     }
 
-
     public void drawCards() {
         blackJack.createCardList();
         List<String> hostCardList = blackJack.getHostCardList();
@@ -112,22 +133,15 @@ public class GameController {
         player2.setImage(new Image(getClass().getResource("/images/" + playerCardList.get(1) + ".png").toExternalForm()));
         backCard.setImage(new Image(getClass().getResource("/images/backCard.png").toExternalForm()));
         host2.setImage(new Image(getClass().getResource("/images/" + hostCardList.get(1) + ".png").toExternalForm()));
-        start.setDisable(true);
-        hit.setDisable(false);
-        stand.setDisable(false);
+        setUpButtonsForNextRound();
         currentScore.setText("Current score: " + blackJack.getPlayerCardValue());
+
         if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == 1) {
-            state.setText("You have won!");
-            numberOfWins++;
-            start.setDisable(false);
-            hit.setDisable(true);
-            stand.setDisable(true);
+            playerScenario();
+            setUpButtonsForCurrentRound();
         } else if ((blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == -1)) {
-            state.setText("You have lost!");
-            numberOfLosses++;
-            start.setDisable(false);
-            hit.setDisable(true);
-            stand.setDisable(true);
+            hostScenario();
+            setUpButtonsForCurrentRound();
         }
 
     }
@@ -138,17 +152,12 @@ public class GameController {
         ++playerIndex;
         currentScore.setText("Current score: " + blackJack.getPlayerCardValue());
         if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == 1) {
-            state.setText("You have won!");
-            numberOfWins++;
-            start.setDisable(false);
-            hit.setDisable(true);
-            stand.setDisable(true);
+            playerScenario();
+            setUpButtonsForCurrentRound();
+
         } else if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == -1) {
-            state.setText("You have lost!");
-            numberOfLosses++;
-            start.setDisable(false);
-            hit.setDisable(true);
-            stand.setDisable(true);
+            hostScenario();
+            setUpButtonsForCurrentRound();
         }
     }
 
@@ -167,24 +176,18 @@ public class GameController {
         }
         hostScore.setText("Host Score: " + blackJack.getHostCardValue());
         if (blackJack.checkStateOfGame(blackJack.getHostCardValue()) == 1) {
-            state.setText("You have lost!");
-            numberOfLosses++;
+            hostScenario();
         } else if (blackJack.checkStateOfGame(blackJack.getHostCardValue()) == -1) {
-            state.setText("You have won!");
-            numberOfWins++;
+            playerScenario();
         } else {
             if (blackJack.compareValue()) {
-                state.setText("You have won!");
-                numberOfWins++;
+                playerScenario();
             } else {
-                state.setText("You have lost!");
-                numberOfLosses++;
+                hostScenario();
             }
 
         }
-        start.setDisable(false);
-        hit.setDisable(true);
-        stand.setDisable(true);
+        setUpButtonsForCurrentRound();
     }
 
     @FXML
@@ -192,7 +195,7 @@ public class GameController {
 
         blackJack = new BlackJack();
         blackJackResultDao = BlackJackResultDao.getInstance();
-        drawGame();
+        drawPreField();
         hit.setDisable(true);
         stand.setDisable(true);
 
