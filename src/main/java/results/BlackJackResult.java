@@ -23,11 +23,26 @@ public class BlackJackResult {
     @GeneratedValue()
     private Long id;
 
+    /**
+     * The name that user sets.
+     */
+
     private String name;
+
+    /**
+     *The amount of wins you had in one round of game.
+     */
 
     private int wins;
 
+    /**
+     *The amount of losses you had in one round of game.
+     */
+
     private int losses;
+    /**
+     * The exact timestamp when the result has been saved.
+     */
 
     private ZonedDateTime date;
 
