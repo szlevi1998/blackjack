@@ -81,30 +81,32 @@ public class GameController {
         currentUser.setText("Current user: " + this.userName);
     }
 
-    public void drawPreField() {
+    private void drawBackground() {
         background.setImage(new Image(getClass().getResource("/images/background.jpg").toExternalForm()));
     }
 
-    public void setUpButtonsForCurrentRound() {
+    private void setUpButtonsForCurrentRound() {
         start.setDisable(false);
         hit.setDisable(true);
         stand.setDisable(true);
     }
 
-    public void setUpButtonsForNextRound() {
+    private void setUpButtonsForNextRound() {
         start.setDisable(true);
         hit.setDisable(false);
         stand.setDisable(false);
     }
 
-    public void playerScenario() {
+    private void playerScenario() {
         state.setText("You have won!");
         numberOfWins++;
+        log.info("Player has won.");
     }
 
-    public void hostScenario() {
+    private void hostScenario() {
         state.setText("You have lost!");
         numberOfLosses++;
+        log.info("Host has won.");
     }
 
     public void resetGame() {
@@ -119,20 +121,24 @@ public class GameController {
         playerIndex = 2;
         state.setText(null);
         hostScore.setText(null);
-
+        log.info("Cards have been reseted.");
     }
 
-    public void drawCards() {
+    private void drawPreRoundState() {
         blackJack.createCardList();
         List<String> hostCardList = blackJack.getHostCardList();
         List<String> playerCardList = blackJack.getPlayerCardList();
-
-        resetGame();
-
         player1.setImage(new Image(getClass().getResource("/images/" + playerCardList.get(0) + ".png").toExternalForm()));
         player2.setImage(new Image(getClass().getResource("/images/" + playerCardList.get(1) + ".png").toExternalForm()));
         backCard.setImage(new Image(getClass().getResource("/images/backCard.png").toExternalForm()));
         host2.setImage(new Image(getClass().getResource("/images/" + hostCardList.get(1) + ".png").toExternalForm()));
+        log.info("Created pre table for the next round of the game");
+    }
+
+    public void drawCards() {
+
+        resetGame();
+        drawPreRoundState();
         setUpButtonsForNextRound();
         currentScore.setText("Current score: " + blackJack.getPlayerCardValue());
 
@@ -165,7 +171,7 @@ public class GameController {
         ImageView view = (ImageView) host.getChildren().get(hostIndex);
         view.setImage(new Image(getClass().getResource("/images/" + blackJack.addHostCard() + ".png").toExternalForm()));
         ++hostIndex;
-
+        log.info("Card has been added");
     }
 
     public void endTurn() {
@@ -195,13 +201,15 @@ public class GameController {
 
         blackJack = new BlackJack();
         blackJackResultDao = BlackJackResultDao.getInstance();
-        drawPreField();
+        drawBackground();
         hit.setDisable(true);
         stand.setDisable(true);
 
     }
 
     private BlackJackResult getResult() {
+
+        log.info("Game result has been created");
 
         BlackJackResult result = BlackJackResult.builder()
                 .name(userName)
@@ -221,6 +229,7 @@ public class GameController {
         stage.setX((Screen.getPrimary().getBounds().getWidth() / 2) - 350);
         stage.setY(0);
         stage.show();
+        log.info("Finished game, loading to top scores.");
     }
 
 
