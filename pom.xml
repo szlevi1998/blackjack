@@ -7,6 +7,13 @@
     <groupId>hu.unideb.inf</groupId>
     <artifactId>blackjack</artifactId>
     <version>1.0</version>
+
+    <scm>
+        <connection>scm:git:https://github.com/szlevi1998/blackjack.git</connection>
+        <developerConnection>scm:git:https://github.com/szlevi1998/blackjack.git</developerConnection>
+        <url>https://github.com/szlevi1998/blackjack</url>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -15,6 +22,22 @@
         <dependency.locations.enabled>false</dependency.locations.enabled>
         <exec.mainClass>main.Main</exec.mainClass>
     </properties>
+    <description>
+        Blackjack is also well known as Twenty-One.
+        It is a simple card game where your main goal is to get your cards value as close to 21 as possible.
+        The phrase bust is used when either you or the host goes over 21.
+        You can win by various ways : The simplest is to get 21.
+        You can win by outscoring the host for example 20 to 19.
+        Lastly you can win by the host going bust.
+    </description>
+
+    <developers>
+        <developer>
+            <name>Szűcs Levente</name>
+            <email>sz.levi1998@gmail.com</email>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -181,7 +204,8 @@
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>${exec.mainClass}</mainClass>
                                 </transformer>
                             </transformers>

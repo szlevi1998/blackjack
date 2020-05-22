@@ -1,6 +1,7 @@
 package game;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +10,15 @@ import java.util.List;
  * Class representing the rules of the game.
  */
 
-@Getter
 public class BlackJack {
     @Getter
-    List<String> hostCardList;
+    @Setter
+    List<String> hostCardList = new ArrayList<>();
+
     @Getter
-    List<String> playerCardList;
+    @Setter
+    List<String> playerCardList = new ArrayList<>();
+
 
     Card card = new Card();
 
@@ -22,7 +26,7 @@ public class BlackJack {
     private int numberOfHostAces = 0;
 
     /**
-     * Setting up
+     * Setting up.
      */
 
     public void createCardList() {
@@ -34,7 +38,7 @@ public class BlackJack {
         numberOfHostAces = 0;
     }
 
-    public List<String> getHostList() {
+    private List<String> getHostList() {
         List<String> result = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
@@ -48,7 +52,7 @@ public class BlackJack {
         return result;
     }
 
-    public List<String> getPlayerList() {
+    private List<String> getPlayerList() {
         List<String> result = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
@@ -94,7 +98,7 @@ public class BlackJack {
         return recentCard;
     }
 
-    public String clearLetter(String str) {
+    private String clearLetter(String str) {
         return str.substring(0, str.length() - 1);
     }
 
