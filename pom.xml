@@ -245,9 +245,6 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-        <filters>
-            <filter>db.properties</filter>
-        </filters>
     </build>
     <reporting>
         <plugins>

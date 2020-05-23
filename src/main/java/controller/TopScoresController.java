@@ -25,6 +25,9 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Controller Class representing the TopScores list.
+ */
 @Slf4j
 public class TopScoresController {
 
@@ -44,6 +47,12 @@ public class TopScoresController {
 
     private BlackJackResultDao blackJackResultDao;
 
+    /**
+     * Loads back the to the start of the program when a player clicks on the main menu .
+     *
+     * @param actionEvent a click by a player
+     * @throws IOException if{@code FXMLLoader} can't load fxml file
+     */
     public void back(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/launch.fxml"));
@@ -55,6 +64,9 @@ public class TopScoresController {
         log.info("Loading launch scene.");
     }
 
+    /**
+     * Initiates the topScores fxml file.
+     */
     @FXML
     public void initialize() {
         blackJackResultDao = BlackJackResultDao.getInstance();

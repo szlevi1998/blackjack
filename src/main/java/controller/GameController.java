@@ -83,7 +83,7 @@ public class GameController {
     /**
      * The player enters a name and with {@code userName} and the method saves the name.
      *
-     * @param userName
+     * @param userName the name of the player
      */
     public void initializeData(String userName) {
         this.userName = userName;
@@ -108,7 +108,11 @@ public class GameController {
 
     }
 
-    public void drawCards() {
+    /**
+     *When the player clicks on the start button, the first two cards appears to the player and the host.
+     *If the player has a blackjack, then the player automatically wins.
+     */
+    public void setUpFirstRound() {
 
         resetGame();
         drawPreRoundState();
@@ -117,9 +121,6 @@ public class GameController {
 
         if (blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == 1) {
             playerScenario();
-            setUpButtonsForNextRound();
-        } else if ((blackJack.checkStateOfGame(blackJack.getPlayerCardValue()) == -1)) {
-            hostScenario();
             setUpButtonsForNextRound();
         }
 
@@ -175,7 +176,11 @@ public class GameController {
         log.info("Host has won.");
     }
 
-
+    /**If a player presses the hit button it gives a random card to the player's hand.
+     * If the player's cards sum is 21, then the players wins.
+     *If the sum goes over 21, then the host wins.
+     *
+     */
     public void addNewPlayerCard() {
         ImageView view = (ImageView) player.getChildren().get(playerIndex);
         view.setImage(new Image(getClass().getResource("/images/" + blackJack.addPlayerCard() + ".png").toExternalForm()));
@@ -191,7 +196,11 @@ public class GameController {
         }
     }
 
-    public void endTurn() {
+    /**
+     *When the player hits the stand button, the rounds end and decides who is the winner.
+     *
+     */
+    public void endRound() {
         List<String> hostCardList = blackJack.getHostCardList();
         backCard.setImage(new Image(getClass().getResource("/images/" + hostCardList.get(0) + ".png").toExternalForm()));
         while (blackJack.getHostCardValue() < 17) {
@@ -235,7 +244,7 @@ public class GameController {
 
 
     /**
-     * Loads the top scores when the player clicks on the eit button
+     * Loads the top scores when the player clicks on the exit button.
      *
      * @param actionEvent a click by the player
      * @throws IOException if {@code fxmlLoader} can't load fxml file

@@ -26,74 +26,66 @@ public class BlackJack {
     private int numberOfHostAces = 0;
 
     /**
-     * Setting up.
+     * Setting up the first two cards for the host and the player.
      */
-
     public void createCardList() {
         playerCardList = null;
         hostCardList = null;
-        hostCardList = this.getHostList();
-        playerCardList = this.getPlayerList();
+        hostCardList = this.getFirstTwoCards();
+        playerCardList = this.getFirstTwoCards();
         numberOfPlayerAces = 0;
         numberOfHostAces = 0;
     }
 
-    private List<String> getHostList() {
+    private List<String> getFirstTwoCards() {
         List<String> result = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
+        int i = 0;
+        while (i < 2) {
             String recentCard = card.getRandomCard();
             if (!result.contains(recentCard)) {
                 result.add(recentCard);
-            } else {
-                i--;
+                i++;
             }
         }
         return result;
+
     }
 
-    private List<String> getPlayerList() {
-        List<String> result = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
-            String recentCard = card.getRandomCard();
-            if (!result.contains(recentCard)) {
-                result.add(recentCard);
-            } else {
-                i--;
-            }
-        }
-        return result;
-    }
-
-
+    /**
+     * Adds a card to the player's hand and returns the added card.
+     *
+     * @return a String which contains the added card
+     */
     public String addPlayerCard() {
 
         String recentCard = null;
 
-        for (int i = 0; i < 1; i++) {
+        int i = 0;
+        while (i == 0) {
             recentCard = card.getRandomCard();
             if (!playerCardList.contains(recentCard)) {
                 playerCardList.add(recentCard);
-            } else {
-                i--;
+                i++;
             }
 
         }
         return recentCard;
     }
 
+    /**
+     * Adds a card to the host's hand and returns the added card.
+     *
+     * @return a string which contains the added card
+     */
     public String addHostCard() {
         String recentCard = null;
-
-        for (int i = 0; i < 1; i++) {
+        int i = 0;
+        while (i == 0) {
             recentCard = card.getRandomCard();
             if (!hostCardList.contains(recentCard)) {
                 hostCardList.add(recentCard);
-            } else {
-                i--;
+                i++;
             }
-
         }
         return recentCard;
     }
@@ -102,7 +94,11 @@ public class BlackJack {
         return str.substring(0, str.length() - 1);
     }
 
-
+    /**
+     * Draws a card and increases the sum value of the player's hand.
+     *
+     * @return an integer variable which is the player's card value
+     */
     public int getPlayerCardValue() {
         int cardNum = 0;
         String value = null;
@@ -128,13 +124,17 @@ public class BlackJack {
         return cardNum;
     }
 
+    /**
+     * Draws a card and increases the sum value of the host's hand.
+     *
+     * @return an integer variable which is the host card value
+     */
     public int getHostCardValue() {
         int cardNum = 0;
         String value = null;
         numberOfHostAces = 0;
         for (String str : hostCardList) {
             value = clearLetter(str);
-
 
             if (value.matches("A")) {
                 numberOfHostAces++;
@@ -147,7 +147,6 @@ public class BlackJack {
 
         }
 
-
         while (cardNum > 21 && numberOfHostAces > 0) {
             numberOfHostAces--;
             cardNum -= 10;
@@ -155,7 +154,14 @@ public class BlackJack {
         return cardNum;
     }
 
-
+    /**
+     * Checks the state of the game. If the value of the cards are 21, the player wins.
+     * If the value is over 21, then the player lost.
+     * If the value is under 21 then the round proceeds.
+     *
+     * @param value the sum of the cards in the player's or host's hand
+     * @return {@code 1 } if the value equals 21, {@code -1} if the value is over 21, {@code 0} otherwise
+     */
     public int checkStateOfGame(int value) {
 
         if (value == 21) {
@@ -167,6 +173,11 @@ public class BlackJack {
         }
     }
 
+    /**
+     * Compares the value between the host and the player .
+     *
+     * @return {@code true} if the players card are higher then the host, {@code false} otherwise.
+     */
     public boolean compareValue() {
         return getPlayerCardValue() > getHostCardValue();
     }

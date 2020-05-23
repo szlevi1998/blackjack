@@ -16,6 +16,11 @@ public class BlackJackResultDao extends GenericJpaDao<BlackJackResult> {
         super(BlackJackResult.class);
     }
 
+    /**
+     * Returns and creates if it's null an instance of the {@link BlackJackResult} class.
+     *
+     * @return an instance of the {@link BlackJackResultDao} class
+     */
     public static BlackJackResultDao getInstance() {
         if (instance == null) {
             instance = new BlackJackResultDao();
@@ -33,7 +38,7 @@ public class BlackJackResultDao extends GenericJpaDao<BlackJackResult> {
      * spent for solving the puzzle
      */
     public List<BlackJackResult> findBest(int n) {
-        return entityManager.createQuery("SELECT r FROM BlackJackResult r ORDER BY r.date ASC", BlackJackResult.class)
+        return entityManager.createQuery("SELECT r FROM BlackJackResult r ORDER BY r.date DESC", BlackJackResult.class)
                 .setMaxResults(n)
                 .getResultList();
     }

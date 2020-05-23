@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import java.time.ZonedDateTime;
 
+/**
+ * Class representing the result of a game by the player.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
