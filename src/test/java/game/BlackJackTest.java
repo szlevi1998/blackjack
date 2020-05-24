@@ -1,10 +1,7 @@
 package game;
 
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 
 import java.util.ArrayList;
@@ -20,9 +17,23 @@ public class BlackJackTest {
     }
 
     @Test
-    public void createCardList(){
+    public void testCreateCardList(){
+
+        underTest.createCardList();
+    Assertions.assertEquals(2,underTest.getHostCardList().size());
+    Assertions.assertEquals(2,underTest.getPlayerCardList().size());
+        for (String str: underTest.getHostCardList()
+             ) {
+            Assertions.assertTrue(str.matches("[AJQK234567891]0*[HDSC]"));
+        }
+        for (String str: underTest.getPlayerCardList()
+        ) {
+            Assertions.assertTrue(str.matches("[AJQK234567891]0*[HDSC]"));
+        }
 
     }
+
+
     @Test
     public void testAddPlayerCard(){
         String addCard = underTest.addPlayerCard();
@@ -57,12 +68,16 @@ public class BlackJackTest {
     @Test
     public void testGetHostCardValue(){
         List<String> list = new ArrayList<>();
-        list.add("KH");
+        list.add("AH");
         list.add("9C");
         underTest.setHostCardList(list);
-        Assertions.assertEquals(19,underTest.getHostCardValue());
-        list.add("AH");
         Assertions.assertEquals(20,underTest.getHostCardValue());
+        list.add("AH");
+        Assertions.assertEquals(21,underTest.getHostCardValue());
+        list.add("7S");
+        Assertions.assertEquals(18,underTest.getHostCardValue());
+        list.add("10C");
+        Assertions.assertEquals(28,underTest.getHostCardValue());
     }
 
     @Test
