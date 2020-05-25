@@ -33,13 +33,13 @@ public class BlackJackResult {
     private String name;
 
     /**
-     *The amount of wins you had in one round of game.
+     * The amount of wins you had in one round of game.
      */
 
     private int wins;
 
     /**
-     *The amount of losses you had in one round of game.
+     * The amount of losses you had in one round of game.
      */
 
     private int losses;

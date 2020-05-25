@@ -31,10 +31,12 @@ public class GameController {
 
     private int playerIndex = 2;
     private int hostIndex = 2;
-    private BlackJack blackJack;
     private String userName;
     private int numberOfWins;
     private int numberOfLosses;
+
+    private BlackJack blackJack;
+
 
     private BlackJackResultDao blackJackResultDao;
 
@@ -109,8 +111,8 @@ public class GameController {
     }
 
     /**
-     *When the player clicks on the start button, the first two cards appears to the player and the host.
-     *If the player has a blackjack, then the player automatically wins.
+     * When the player clicks on the start button, the first two cards appears to the player and the host.
+     * If the player has a blackjack, then the player automatically wins.
      */
     public void setUpFirstRound() {
 
@@ -176,10 +178,10 @@ public class GameController {
         log.info("Host has won.");
     }
 
-    /**If a player presses the hit button it gives a random card to the player's hand.
+    /**
+     * If a player presses the hit button it gives a random card to the player's hand.
      * If the player's cards sum is 21, then the players wins.
-     *If the sum goes over 21, then the host wins.
-     *
+     * If the sum goes over 21, then the host wins.
      */
     public void addNewPlayerCard() {
         ImageView view = (ImageView) player.getChildren().get(playerIndex);
@@ -197,8 +199,7 @@ public class GameController {
     }
 
     /**
-     *When the player hits the stand button, the rounds end and decides who is the winner.
-     *
+     * When the player hits the stand button, the rounds end and decides who is the winner.
      */
     public void endRound() {
         List<String> hostCardList = blackJack.getHostCardList();

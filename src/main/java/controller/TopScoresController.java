@@ -34,16 +34,16 @@ public class TopScoresController {
     @FXML
     private TableView<BlackJackResult> topScoresTable;
     @FXML
-    private TableColumn<BlackJackResult,String> name;
+    private TableColumn<BlackJackResult, String> name;
 
     @FXML
-    private TableColumn<BlackJackResult,Integer> wins;
+    private TableColumn<BlackJackResult, Integer> wins;
 
     @FXML
-    private TableColumn<BlackJackResult,Integer> losses;
+    private TableColumn<BlackJackResult, Integer> losses;
 
     @FXML
-    private TableColumn<BlackJackResult,ZonedDateTime> date;
+    private TableColumn<BlackJackResult, ZonedDateTime> date;
 
     private BlackJackResultDao blackJackResultDao;
 

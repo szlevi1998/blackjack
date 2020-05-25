@@ -12,7 +12,8 @@ public class Main {
      *
      * @param args an array of command-line arguments for the application.
      */
-    public static void main(String[] args) {Application.launch(MyApplication.class, args);
+    public static void main(String[] args) {
+        Application.launch(MyApplication.class, args);
 
     }
 

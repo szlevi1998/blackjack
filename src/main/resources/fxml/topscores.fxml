@@ -4,11 +4,12 @@
 <?import javafx.scene.layout.*?>
 
 <Pane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/13.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1"
+      xmlns:fx="http://javafx.com/fxml/1"
 
-            fx:controller="controller.TopScoresController">
+      fx:controller="controller.TopScoresController">
 
-    <TableView fx:id="topScoresTable" editable="true" layoutX="60.0" layoutY="40.0" prefHeight="320.0" prefWidth="480.0">
+    <TableView fx:id="topScoresTable" editable="true" layoutX="60.0" layoutY="40.0" prefHeight="320.0"
+               prefWidth="480.0">
         <columns>
             <TableColumn fx:id="name" prefWidth="120.0" text="Name"/>
             <TableColumn fx:id="wins" prefWidth="120.0" text="Wins"/>
@@ -16,6 +17,6 @@
             <TableColumn fx:id="date" prefWidth="120.0" text="Date"/>
         </columns>
     </TableView>
-    <Button layoutX="256.0" layoutY="365.0" onAction="#back" mnemonicParsing="false"  text="Main Menu"/>
+    <Button layoutX="256.0" layoutY="365.0" onAction="#back" mnemonicParsing="false" text="Main Menu"/>
 
 </Pane>
