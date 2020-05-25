@@ -17,16 +17,16 @@ public class BlackJackTest {
     }
 
     @Test
-    public void testCreateCardList(){
+    public void testCreateCardList() {
 
         underTest.createCardList();
-    Assertions.assertEquals(2,underTest.getHostCardList().size());
-    Assertions.assertEquals(2,underTest.getPlayerCardList().size());
-        for (String str: underTest.getHostCardList()
-             ) {
+        Assertions.assertEquals(2, underTest.getHostCardList().size());
+        Assertions.assertEquals(2, underTest.getPlayerCardList().size());
+        for (String str : underTest.getHostCardList()
+        ) {
             Assertions.assertTrue(str.matches("[AJQK234567891]0*[HDSC]"));
         }
-        for (String str: underTest.getPlayerCardList()
+        for (String str : underTest.getPlayerCardList()
         ) {
             Assertions.assertTrue(str.matches("[AJQK234567891]0*[HDSC]"));
         }
@@ -35,24 +35,23 @@ public class BlackJackTest {
 
 
     @Test
-    public void testAddPlayerCard(){
+    public void testAddPlayerCard() {
         String addCard = underTest.addPlayerCard();
         Assertions.assertTrue(addCard.matches("[AJQK234567891]0*[HDSC]"));
         Assertions.assertTrue(underTest.getPlayerCardList().contains(addCard));
     }
 
     @Test
-    public void testAddHostCard(){
-    String addCard = underTest.addHostCard();
+    public void testAddHostCard() {
+        String addCard = underTest.addHostCard();
         Assertions.assertTrue(addCard.matches("[AJQK234567891]0*[HDSC]"));
         Assertions.assertTrue(underTest.getHostCardList().contains(addCard));
     }
 
 
-
     @Test
-   public void testGetPlayerCardValue() {
-       List<String> list = new ArrayList<>();
+    public void testGetPlayerCardValue() {
+        List<String> list = new ArrayList<>();
         list.add("AS");
         list.add("5H");
 
@@ -66,31 +65,31 @@ public class BlackJackTest {
     }
 
     @Test
-    public void testGetHostCardValue(){
+    public void testGetHostCardValue() {
         List<String> list = new ArrayList<>();
         list.add("AH");
         list.add("9C");
         underTest.setHostCardList(list);
-        Assertions.assertEquals(20,underTest.getHostCardValue());
+        Assertions.assertEquals(20, underTest.getHostCardValue());
         list.add("AH");
-        Assertions.assertEquals(21,underTest.getHostCardValue());
+        Assertions.assertEquals(21, underTest.getHostCardValue());
         list.add("7S");
-        Assertions.assertEquals(18,underTest.getHostCardValue());
+        Assertions.assertEquals(18, underTest.getHostCardValue());
         list.add("10C");
-        Assertions.assertEquals(28,underTest.getHostCardValue());
+        Assertions.assertEquals(28, underTest.getHostCardValue());
     }
 
     @Test
-    public void testCheckStateOfGame(){
-        Assertions.assertEquals(1,underTest.checkStateOfGame(21));
-        Assertions.assertEquals(-1,underTest.checkStateOfGame(23));
-        Assertions.assertEquals(0,underTest.checkStateOfGame(18));
+    public void testCheckStateOfGame() {
+        Assertions.assertEquals(1, underTest.checkStateOfGame(21));
+        Assertions.assertEquals(-1, underTest.checkStateOfGame(23));
+        Assertions.assertEquals(0, underTest.checkStateOfGame(18));
 
     }
 
 
     @Test
-    public void testCompareValue(){
+    public void testCompareValue() {
         List<String> player = new ArrayList<>();
         player.add("KH");
         player.add("9C");
@@ -102,10 +101,10 @@ public class BlackJackTest {
         underTest.setPlayerCardList(player);
         underTest.setHostCardList(host);
 
-     Assertions.assertTrue(underTest.compareValue());
-     host.add("AD");
-     underTest.setHostCardList(host);
-     Assertions.assertFalse(underTest.compareValue());
+        Assertions.assertTrue(underTest.compareValue());
+        host.add("AD");
+        underTest.setHostCardList(host);
+        Assertions.assertFalse(underTest.compareValue());
 
     }
 

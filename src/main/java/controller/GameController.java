@@ -92,10 +92,6 @@ public class GameController {
         currentUser.setText("Current user: " + this.userName);
     }
 
-    private void drawBackground() {
-        background.setImage(new Image(getClass().getResource("/images/background.jpg").toExternalForm()));
-    }
-
     /**
      * Initializes the game fxml file.
      */
@@ -108,6 +104,10 @@ public class GameController {
         hit.setDisable(true);
         stand.setDisable(true);
 
+    }
+
+    private void drawBackground() {
+        background.setImage(new Image(getClass().getResource("/images/background.jpg").toExternalForm()));
     }
 
     /**
@@ -235,12 +235,11 @@ public class GameController {
 
         log.info("Game result has been created");
 
-        BlackJackResult result = BlackJackResult.builder()
+        return BlackJackResult.builder()
                 .name(userName)
                 .wins(numberOfWins)
                 .losses(numberOfLosses)
                 .build();
-        return result;
     }
 
 

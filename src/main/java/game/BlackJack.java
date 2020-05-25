@@ -109,7 +109,7 @@ public class BlackJack {
             if (value.matches("A")) {
                 numberOfPlayerAces++;
                 cardNum += 11;
-            } else if (value.matches("K|Q|J")) {
+            } else if (value.matches("[KQJ]")) {
                 cardNum += 10;
             } else {
                 cardNum += Integer.parseInt(value);
