@@ -101,7 +101,7 @@ public class BlackJack {
      */
     public int getPlayerCardValue() {
         int cardNum = 0;
-        String value = null;
+        String value;
         numberOfPlayerAces = 0;
         for (String str : playerCardList) {
             value = clearLetter(str);
@@ -131,7 +131,7 @@ public class BlackJack {
      */
     public int getHostCardValue() {
         int cardNum = 0;
-        String value = null;
+        String value;
         numberOfHostAces = 0;
         for (String str : hostCardList) {
             value = clearLetter(str);
@@ -139,7 +139,7 @@ public class BlackJack {
             if (value.matches("A")) {
                 numberOfHostAces++;
                 cardNum += 11;
-            } else if (value.matches("K|Q|J")) {
+            } else if (value.matches("[KQJ]")) {
                 cardNum += 10;
             } else {
                 cardNum += Integer.parseInt(value);

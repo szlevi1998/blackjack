@@ -79,7 +79,7 @@ public class TopScoresController {
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         date.setCellFactory(column -> {
-            TableCell<BlackJackResult, ZonedDateTime> cell = new TableCell<BlackJackResult, ZonedDateTime>() {
+            TableCell<BlackJackResult, ZonedDateTime> cell = new TableCell<>() {
                 private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
                 @Override
